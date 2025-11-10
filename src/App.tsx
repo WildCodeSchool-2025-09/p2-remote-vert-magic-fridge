@@ -1,11 +1,12 @@
+import { Link, Outlet } from "react-router";
 import "./App.css";
 
 function App() {
-	const name = "toto";
-	const text = "Welcome";
 	return (
 		<>
-			{text} {name}
+			<Link to="/">Home</Link>
+			<Link to="/favorite">Favorite</Link>
+			<Outlet />
 		</>
 	);
 }

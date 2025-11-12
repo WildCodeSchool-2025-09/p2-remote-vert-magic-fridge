@@ -1,5 +1,15 @@
+@font-face {
+	font-family: "ArchivoNarrow";
+	src: url(src/assets/fonts/ArchivoNarrow.ttf);
+}
+
+@font-face {
+	font-family: "PPRight";
+	src: url(src/assets/fonts/PPRight.otf);
+}
+
 :root {
-	--title-font: "PP Right Serif", "Lora", serif;
+	--title-font: "PPRight", "Montsserat";
 	--text-font: "ArchivoNarrow", "Lora", serif;
 	--bg-color: rgba(254, 251, 249, 1);
 	--text-color-blk: rgba(0, 0, 0, 1);

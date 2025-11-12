@@ -1,8 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Luckiest+Guy&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
 :root {
 	--title-font: "PP Right Serif", "Lora", serif;
-	--text-font: "archivo narrow", "Lora", serif;
+	--text-font: "ArchivoNarrow", "Lora", serif;
 	--bg-color: rgba(254, 251, 249, 1);
 	--text-color-blk: rgba(0, 0, 0, 1);
 	--bg-color-fiche: rgba(223, 214, 205, 0.29);

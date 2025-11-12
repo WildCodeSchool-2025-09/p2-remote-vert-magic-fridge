@@ -1,0 +1,36 @@
+.recipe-filter {
+	color: var(--text-color-wht);
+	width: 20em;
+	display: flex;
+	flex-direction: column;
+	font-family: var(--text-font);
+}
+
+.button-filter {
+	max-width: 3em;
+}
+
+.input-filter {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--bg-color-darkred);
+	padding: 2em;
+	gap: 1em;
+}
+
+.input {
+	width: 4em;
+	background-color: var(--text-color-wht);
+	border: none;
+	border-radius: 2px;
+	margin-right: 2em;
+}
+
+.stick-filter {
+	accent-color: var(--text-color-wht);
+}
+
+.input-form {
+	display: flex;
+	justify-content: space-between;
+}

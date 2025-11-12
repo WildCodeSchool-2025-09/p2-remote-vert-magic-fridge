@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
+import "../styles/ingredient_filter.css";
 
 function IngredientFilter() {
 	const [value, setValue] = useState<number>(50);
@@ -19,12 +20,12 @@ function IngredientFilter() {
 
 	return (
 		<>
-			<div>
-				<button type="button" onClick={toggleMenu}>
+			<div className="recipe-filter">
+				<button type="button" onClick={toggleMenu} className="button-filter">
 					<img src="src\assets\images\filter.svg" alt="" width="20px" />
 				</button>
 				{open && (
-					<div>
+					<div className="input-filter">
 						<label htmlFor="time">Temps de préparation : {value} min</label>
 						<input
 							type="range"
@@ -33,14 +34,22 @@ function IngredientFilter() {
 							step="1"
 							value={value}
 							onChange={handleChange}
+							className="stick-filter"
 						/>
-						<br />
-						<input type="number" min="0" />
-						<label htmlFor="number">Nombre d'ingrédients</label>
-						<br />
-						<input type="number" min="0" max="100" step="10" />
-						<label htmlFor="number">Compatibilité en %</label>
-						<br />
+						<div className="input-form">
+							<input type="number" min="0" className="input" />
+							<label htmlFor="number">Nombre d'ingrédients</label>
+						</div>
+						<div className="input-form">
+							<input
+								type="number"
+								min="0"
+								max="100"
+								step="10"
+								className="input"
+							/>
+							<label htmlFor="number">Compatibilité en %</label>
+						</div>
 						<label htmlFor="time">calories max : {calorie} kcal</label>
 						<input
 							type="range"
@@ -49,6 +58,7 @@ function IngredientFilter() {
 							step="1"
 							value={calorie}
 							onChange={calorieSelected}
+							className="stick-filter"
 						/>
 					</div>
 				)}

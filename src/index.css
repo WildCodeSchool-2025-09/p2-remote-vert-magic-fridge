@@ -1,14 +1,22 @@
+@font-face {
+	font-family: "ArchivoNarrow";
+	src: url(src/assets/fonts/ArchivoNarrow.ttf);
+}
+
+@font-face {
+	font-family: "PPRight";
+	src: url(src/assets/fonts/PPRight.otf);
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	--title-font: "PPRight", "Montsserat";
+	--text-font: "ArchivoNarrow", "Lora", serif;
+	--bg-color: rgba(254, 251, 249, 1);
+	--text-color-blk: rgba(0, 0, 0, 1);
+	--bg-color-fiche: rgba(223, 214, 205, 0.29);
+	--bg-color-darkred: rgba(161, 41, 51, 1);
+	--bg-color-brightred: rgba(230, 59, 68, 1);
+	--text-color-wht: rgba(255, 255, 255, 1);
+	--text-color-ftr: rgba(136, 132, 132, 1);
+	--border-color: rgba(0, 0, 0, 0.3); /*transparence 30%*/
 }

@@ -131,7 +131,22 @@ export default function Home() {
 			});
 	};
 
-	function prepTime() {}
+	function prepTime(strInstructions, idMeal) {
+		const wordCount = strInstructions.split(/\s+/);
+		const timeOfWords = wordCount.length * 0.25;
+		let sum = 0;
+		for (let i = 0; i < idMeal.length; i++) {
+			sum += idMeal[i];
+		}
+		const jitter = sum % 6;
+		const totalTime = timeOfWords + jitter;
+		return Math.round(totalTime);
+	}
+	// je prends le nombre de caractères dans strInstructions et je les multiplie par 0,25 avec pour base le idMeal divisé par 6 (pour un résultat entre 1 et 5)
+	//s'il y a des mots particuliers dans strInstr comme bake, oven, boil etc on rajoute un temps donné
+	//si le temps est inférieur à 5 minutes temps = 5 min
+	// temps max = 320 min
+	//retourner un nombre entier.
 
 	return (
 		<>
@@ -145,6 +160,10 @@ export default function Home() {
 						<article key={recipe.idMeal}>
 							<img src={recipe.strMealThumb} alt={recipe.strMeal} />
 							<h2>{recipe.strMeal}</h2>
+							<p>
+								temps de préparation :{" "}
+								{prepTime(recipe.strInstructions, recipe.idMeal)} minutes
+							</p>
 							<button
 								type="button"
 								onClick={() => setIsFavorite(!isFavorite)}

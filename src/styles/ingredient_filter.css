@@ -3,6 +3,7 @@
 	width: 20em;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-end;
 	font-family: var(--text-font);
 	font-size: 1.2em;
 }
@@ -23,6 +24,38 @@
 	background-color: var(--bg-color-darkred);
 	padding: 2em;
 	gap: 1em;
+	overflow: hidden;
+	transform-origin: top;
+}
+
+.input-filter.open {
+	animation: slideDown 0.3s ease forwards;
+}
+
+.input-filter.closing {
+	animation: slideUp 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+	from {
+		transform: scaleY(0.8);
+		opacity: 0;
+	}
+	to {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+}
+
+@keyframes slideUp {
+	from {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+	to {
+		transform: scaleY(0.8);
+		opacity: 0;
+	}
 }
 
 .input {

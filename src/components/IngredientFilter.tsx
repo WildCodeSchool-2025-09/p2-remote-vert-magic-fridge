@@ -24,8 +24,17 @@ function IngredientFilter() {
 	};
 
 	const [open, setOpen] = useState(false);
+	const [closing, setClosing] = useState(false);
 	const toggleMenu = () => {
-		setOpen(!open);
+		if (open) {
+			setClosing(true);
+			setTimeout(() => {
+				setOpen(false);
+				setClosing(false);
+			}, 300);
+		} else {
+			setOpen(true);
+		}
 	};
 
 	return (
@@ -34,8 +43,8 @@ function IngredientFilter() {
 				<button type="button" onClick={toggleMenu} className="button-filter">
 					<img src="src\assets\images\filter.svg" alt="" />
 				</button>
-				{open && (
-					<div className="input-filter">
+				{(open || closing) && (
+					<div className={`input-filter ${closing ? "closing" : "open"}`}>
 						<label htmlFor="time">Temps de préparation : {time} min</label>
 						<input
 							type="range"

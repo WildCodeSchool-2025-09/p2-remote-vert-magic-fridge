@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import "../styles/SearchBar.css";
 import { FilteredIngredients } from "./FilteredIngredients";
 import { SelectedIngredients } from "./SelectedIngredients";
+import { SuggestedRecipies } from "./SuggestedRecipes";
 
 export type Meal = {
 	idMeal: string;
@@ -36,6 +37,8 @@ export type Meal = {
 	strIngredient19: string | null;
 	strIngredient20: string | null;
 
+	strIngredients: string[];
+
 	strSource: string | null;
 	strImageSource: string | null;
 	strCreativeCommonsConfirmed: string | null;
@@ -53,11 +56,55 @@ export type Ingredient = {
 export type SearchType = "recipe" | "ingredient";
 
 async function loadRecipes() {
-	const response = await fetch(
-		"https://www.themealdb.com/api/json/v1/1/search.php?s=",
-	);
-	const result = await response.json();
-	return result.meals as Meal[];
+	const urls = [
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=a",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=b",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=c",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=d",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=e",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=f",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=g",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=h",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=i",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=j",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=k",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=l",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=m",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=n",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=o",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=p",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=q",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=r",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=s",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=t",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=u",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=v",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=w",
+		"https://www.themealdb.com/api/json/v1/1/search.php?f=y",
+	];
+
+	const responses = await Promise.all(urls.map((url) => fetch(url)));
+	const results = await Promise.all(responses.map((res) => res.json()));
+	const allMealsRaw: Meal[] = results.flatMap((r) => r.meals || []);
+
+	const meals = allMealsRaw.map((meal) => {
+		const strIngredients: string[] = [];
+
+		for (let i = 1; i <= 20; i++) {
+			const ingredient = meal[`strIngredient${i}` as keyof Meal];
+			if (
+				ingredient &&
+				typeof ingredient === "string" &&
+				ingredient.trim() !== ""
+			) {
+				strIngredients.push(ingredient);
+			}
+		}
+
+		return { ...meal, strIngredients };
+	});
+
+	return meals;
 }
 
 async function loadIngredients() {
@@ -151,6 +198,7 @@ export function SearchBar() {
 					display: "flex",
 					flexDirection: "column",
 					gap: 12,
+					width: "100%",
 				}}
 			>
 				{searchType === "recipe"
@@ -178,8 +226,21 @@ export function SearchBar() {
 				/>
 
 				<SelectedIngredients
-					onRemoveIngredient={() => {}}
+					onRemoveIngredient={(ingredientToRemove) => {
+						const newIngredients = selectedIngredients.filter(
+							(selectedIngredient) =>
+								selectedIngredient.idIngredient !==
+								ingredientToRemove.idIngredient,
+						);
+						setSelectedIngredients(newIngredients);
+					}}
 					selectedIngredients={selectedIngredients}
+					searchType={searchType}
+				/>
+
+				<SuggestedRecipies
+					selectedIngredients={selectedIngredients}
+					meals={meals}
 					searchType={searchType}
 				/>
 			</div>

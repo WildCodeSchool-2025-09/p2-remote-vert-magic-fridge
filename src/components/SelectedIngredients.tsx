@@ -27,7 +27,7 @@ export function SelectedIngredients({
 				style={{
 					display: "flex",
 					flexDirection: "row",
-					gap: 8,
+					gap: 16,
 					flexWrap: "wrap",
 					width: "100%",
 				}}
@@ -37,13 +37,17 @@ export function SelectedIngredients({
 						key={i.idIngredient}
 						style={{
 							backgroundColor: "#e9e9e9ff",
-							borderRadius: 12,
+							borderRadius: 4,
 							display: "flex",
-							gap: 6,
+							gap: 2,
 							flexDirection: "column",
 							alignItems: "center",
+							justifyContent: "space-around",
 							width: "100%",
 							maxWidth: 120,
+							position: "relative",
+							paddingBottom: "0.5em",
+							fontFamily: "var(--text-font)",
 						}}
 					>
 						{i.strThumb ? (
@@ -53,13 +57,38 @@ export function SelectedIngredients({
 								style={{
 									width: "100%",
 									height: "auto",
-									maxWidth: 48,
+									maxWidth: 80,
 								}}
 							/>
 						) : null}
 						<span style={{ fontSize: 14, fontWeight: "bold" }}>
 							{i.strIngredient}
 						</span>
+						<button
+							type="button"
+							style={{
+								position: "absolute",
+								top: "0",
+								right: "0",
+								border: "none",
+								fontFamily: "Arial",
+								transform: "translate(50%, -50%)",
+								backgroundColor: "lightgray",
+								borderRadius: "9999px",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								width: "24px",
+								height: "24px",
+								color: "black",
+								fontWeight: 800,
+							}}
+							onClick={() => {
+								onRemoveIngredient(i);
+							}}
+						>
+							X
+						</button>
 					</div>
 				))}
 			</div>

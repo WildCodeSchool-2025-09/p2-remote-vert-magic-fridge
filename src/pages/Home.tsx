@@ -1,5 +1,4 @@
 import { useState } from "react";
-import RecipeCard from "../components/RecipeCard";
 import type { RecipeType } from "../types/recipe";
 import "../styles/Home.css";
 
@@ -18,8 +17,13 @@ export default function Home() {
 		<>
 			<section className="recipes-cards">
 				{recipes.map((recipe) => {
-					return <RecipeCard recipe={recipe} key={recipe.idMeal} />;
+					return (
+						<div key={recipe.idMeal} className="recipe-placeholder">
+							{recipe.strMeal}
+						</div>
+					);
 				})}
+
 				<button type="button" onClick={getRecipes}>
 					Get recipes
 				</button>

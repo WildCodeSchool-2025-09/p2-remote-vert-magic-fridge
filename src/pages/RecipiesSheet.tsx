@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import cookingTimeIcon from "../assets/images/cooking-time.png";
+import eatingPersonIcon from "../assets/images/eating-person.png";
 import favoriteIcon from "../assets/images/favoris.png";
 import printerIcon from "../assets/images/printer.png";
+import CalorieInfo from "../components/CalorieInfo";
+import PrintRecipeButton from "../components/PrintRecipeButton";
 import "../styles/RecipiesSheet.css";
 
-// Type minimal pour le repas récupéré depuis l'API
 type Meal = {
 	strMeal: string;
 	strMealThumb: string;
@@ -12,13 +15,16 @@ type Meal = {
 
 export default function RecipiesSheet() {
 	const [meal, setMeal] = useState<Meal | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	const recipeId = 52963;
 
+	// ref для печати только блока рецепта
+	const printRef = useRef<HTMLDivElement | null>(null);
+
 	useEffect(() => {
-		async function fetchRecipe() {
+		const fetchRecipe = async () => {
 			try {
 				const response = await fetch(
 					`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`,
@@ -39,17 +45,17 @@ export default function RecipiesSheet() {
 			} finally {
 				setLoading(false);
 			}
-		}
+		};
 
-		fetchRecipe();
+		void fetchRecipe();
 	}, []);
 
 	if (loading) {
-		return <p className="loading">Chargement...</p>;
+		return <p className="loading">Loading...</p>;
 	}
 
 	if (error || !meal) {
-		return <p className="error">Impossible de charger la recette.</p>;
+		return <p className="error">Unable to load the recipe.</p>;
 	}
 
 	const ingredients: string[] = [];
@@ -64,59 +70,86 @@ export default function RecipiesSheet() {
 
 	return (
 		<main className="recipe-sheet">
-			<header className="recipe-header">
-				<section className="recipe-hero">
-					<section className="recipe-hero-text">
-						<p>recette</p>
-						<h1>{meal.strMeal}</h1>
+			{/* Печатается только этот блок */}
+			<div ref={printRef}>
+				<header className="recipe-header">
+					<section className="recipe-hero">
+						<section className="recipe-hero-text">
+							<p>recette</p>
+							<h1>{meal.strMeal}</h1>
 
-						<section className="recipe-buttons">
-							<button type="button" className="icon-button" title="Favoris">
-								<img src={favoriteIcon} alt="Ajouter aux favoris" />
-							</button>
+							<section className="recipe-buttons">
+								<div className="recipe-buttons-row recipe-buttons-row--top">
+									<button
+										type="button"
+										className="icon-button icon-button--primary icon-button--favorite"
+										title="Favorites"
+									>
+										<img src={favoriteIcon} alt="Add to favorites" />
+									</button>
 
-							{/* ClassNames temporaires pour les boutons — ici viendra ensuite le bouton Print / Imprimer */}
+									<PrintRecipeButton
+										printRef={printRef}
+										icon={printerIcon}
+										className="icon-button icon-button--primary icon-button--print"
+									/>
+								</div>
 
-							<button type="button" className="icon-button" title="Imprimer">
-								<img src={printerIcon} alt="Imprimer la recette" />
-							</button>
-							<span>4856 kcal / 100g</span>
+								<CalorieInfo meal={meal} className="recipe-kcal-styled" />
+
+								<ul className="recipe-tags recipe-buttons-row recipe-buttons-row--bottom">
+									<li title="cooking time: 30 min">
+										<button
+											type="button"
+											className="icon-button icon-button--info"
+											aria-label="cooking time: 30 min"
+										>
+											<img src={cookingTimeIcon} alt="" />
+										</button>
+										<span className="recipe-tag-text">30 min</span>
+									</li>
+
+									<li title="serves 6 people">
+										<button
+											type="button"
+											className="icon-button icon-button--info"
+											aria-label="serves 6 people"
+										>
+											<img src={eatingPersonIcon} alt="" />
+										</button>
+										<span className="recipe-tag-text">6 people</span>
+									</li>
+								</ul>
+							</section>
 						</section>
 
-						<ul className="recipe-tags">
-							<li>cuisson : 30 min</li>
-							<li>pour 6 personnes</li>
-						</ul>
+						<figure className="recipe-hero-figure">
+							<img src={meal.strMealThumb} alt={meal.strMeal} />
+						</figure>
 					</section>
+				</header>
 
-					<figure className="recipe-hero-figure">
-						<img src={meal.strMealThumb} alt={meal.strMeal} />
-					</figure>
+				<section className="recipe-main">
+					<aside className="ingredients-panel">
+						<h2>Ingredients</h2>
+						<ul>
+							{ingredients.map((item) => (
+								<li key={item}>{item}</li>
+							))}
+						</ul>
+					</aside>
+
+					<article className="preparation-panel">
+						<h2>Preparation</h2>
+						{meal.strInstructions
+							?.split(/\r?\n/)
+							.filter((p) => p.trim() !== "")
+							.map((p) => (
+								<p key={p}>{p}</p>
+							))}
+					</article>
 				</section>
-			</header>
-
-			<section>
-				<aside className="ingredients-panel">
-					<h2>Ingrédients</h2>
-
-					<ul>
-						{ingredients.map((item) => (
-							<li key={item}>{item}</li>
-						))}
-					</ul>
-				</aside>
-
-				<article className="preparation-panel">
-					<h2>Préparation</h2>
-
-					{meal.strInstructions
-						?.split(/\r?\n/)
-						.filter((p) => p.trim() !== "")
-						.map((p) => (
-							<p key={p}>{p}</p>
-						))}
-				</article>
-			</section>
+			</div>
 
 			<footer className="recipe-footer">
 				<p>© Magic Fridge - 2025</p>

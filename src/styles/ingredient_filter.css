@@ -18,6 +18,10 @@
 	}
 }
 
+.button-filter:hover {
+	opacity: 0.5;
+}
+
 .input-filter {
 	display: flex;
 	flex-direction: column;
@@ -68,6 +72,23 @@
 
 .stick-filter {
 	accent-color: var(--text-color-wht);
+	cursor: grab;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+	background: var(--text-color-wht);
+	height: 6px;
+	border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 16px;
+	height: 16px;
+	background: #3498db;
+	border-radius: 50%;
+	margin-top: -5px;
 }
 
 .input-form {

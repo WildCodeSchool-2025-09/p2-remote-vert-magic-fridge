@@ -87,6 +87,7 @@ async function loadRecipes() {
 	const results = await Promise.all(responses.map((res) => res.json()));
 	const allMealsRaw: Meal[] = results.flatMap((r) => r.meals || []);
 
+	/*Extraire les ingrédients de chaque recette et renvoyer une version qui contient la recette et un tableau d'ingrédients */
 	const meals = allMealsRaw.map((meal) => {
 		const strIngredients: string[] = [];
 

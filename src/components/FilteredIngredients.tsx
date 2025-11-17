@@ -1,4 +1,5 @@
 import type { Ingredient, SearchType } from "./SearchBar";
+import "../styles/SearchBar.css";
 
 export function FilteredIngredients({
 	filteredIngredients,
@@ -16,17 +17,11 @@ export function FilteredIngredients({
 	}
 
 	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				gap: 8,
-				marginTop: 12,
-			}}
-		>
+		<div className="filteredIngList">
 			{filteredIngredients.map((i) => (
 				// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 				<div
+					className="filteredIng"
 					key={i.idIngredient}
 					onClick={() => onSelectIngredient(i)}
 					style={{
@@ -35,22 +30,13 @@ export function FilteredIngredients({
 						)
 							? "#b9b9b9ff"
 							: "#dbdbdbff",
-						borderRadius: 12,
-						display: "flex",
-						gap: 6,
-						flexDirection: "row",
-						alignItems: "center",
 					}}
 				>
 					{i.strThumb ? (
 						<img
+							className="filteredIngImage"
 							src={i.strThumb}
 							alt={i.strIngredient}
-							style={{
-								width: "100%",
-								height: "auto",
-								maxWidth: 48,
-							}}
 						/>
 					) : null}
 					<span>{i.strIngredient}</span>

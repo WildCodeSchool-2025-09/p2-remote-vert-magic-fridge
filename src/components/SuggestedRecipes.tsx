@@ -1,4 +1,5 @@
 import type { Ingredient, Meal, SearchType } from "./SearchBar";
+import "../styles/SearchBar.css";
 
 export function SuggestedRecipies({
 	selectedIngredients,
@@ -31,7 +32,7 @@ export function SuggestedRecipies({
 
 		return hasSelectedIngredient;
 	});
-
+	/* Je vais remplacer cette partie par le composant RecipeCard de Julien */
 	return (
 		<div
 			style={{

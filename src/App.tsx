@@ -8,7 +8,7 @@ export default function App() {
 			<NavBar />
 			<Outlet />
 			{/* Lien temporaire vers la page RecipiesSheet */}
-			<div style={{ padding: "40px", textAlign: "center" }}>
+			<div>
 				<a
 					href="/recipies-sheet"
 					style={{ fontSize: "22px", fontWeight: "600" }}

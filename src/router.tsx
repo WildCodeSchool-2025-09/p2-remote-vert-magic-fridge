@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
 				element: <Recipes />,
 			},
 			{
-				path: "/recipies-sheet",
+				path: "/recipe/:id",
 				element: <RecipiesSheet />,
 			},
 		],

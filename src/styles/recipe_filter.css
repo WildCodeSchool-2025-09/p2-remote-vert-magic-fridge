@@ -63,7 +63,7 @@
 }
 
 .input {
-	width: 4em;
+	width: auto;
 	background-color: var(--text-color-wht);
 	border: none;
 	border-radius: 2px;

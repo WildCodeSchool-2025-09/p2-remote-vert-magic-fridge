@@ -126,9 +126,9 @@ function RecipeFilter() {
 		setTime(Number(e.target.value));
 	};
 
-	const [ing, setNbrIng] = useState<number>(2);
-	const selectedIng = (e: ChangeEvent<HTMLInputElement>) => {
-		setNbrIng(Number(e.target.value));
+	const [meal, setMeal] = useState<string>("");
+	const selectedMeal = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setMeal(e.target.value);
 	};
 
 	const [open, setOpen] = useState(false);
@@ -164,21 +164,36 @@ function RecipeFilter() {
 							className="stick-filter"
 						/>
 						<div className="input-form">
-							<input
-								type="number"
-								min="0"
+							<select
+								id="meal"
+								value={meal}
+								onChange={selectedMeal}
 								className="input"
-								value={ing}
-								onChange={selectedIng}
-							/>
-							<label htmlFor="number">Nombre d'ingrédients</label>
+							>
+								<option value="">-- Chose --</option>
+								<option value="Beef">Beef</option>
+								<option value="Breakfast">Breakfast</option>
+								<option value="Chicken">Chicken</option>
+								<option value="Dessert">Dessert</option>
+								<option value="Goat">Goat</option>
+								<option value="Lamb">Lamb</option>
+								<option value="Miscellaneous">Miscellaneous</option>
+								<option value="Pasta">Pasta</option>
+								<option value="Pork">Pork</option>
+								<option value="Seafood">Seafood</option>
+								<option value="Side">Side</option>
+								<option value="Starter">Starter</option>
+								<option value="Vegan">Vegan</option>
+								<option value="Vegetarian">Vegetarian</option>
+							</select>
+							<label htmlFor="meal">Meal's type</label>
 						</div>
 					</div>
 				)}
 			</div>
 			{/* La map suivante est seulement pour verifié la fontionalité du filtre, non défénitive */}
 			{testRecipes.map((recipe) =>
-				recipe.tempsPreparation <= time && recipe.ingredients.length <= ing ? (
+				recipe.tempsPreparation <= time ? (
 					<div key={recipe.titre}>{recipe.titre}</div>
 				) : (
 					""

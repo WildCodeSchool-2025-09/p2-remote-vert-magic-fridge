@@ -8,9 +8,9 @@ function IngredientFilter() {
 		setTime(Number(e.target.value));
 	};
 
-	const [ing, setNbrIng] = useState<number>(2);
-	const selectedIng = (e: ChangeEvent<HTMLInputElement>) => {
-		setNbrIng(Number(e.target.value));
+	const [meal, setMeal] = useState<string>("");
+	const selectedMeal = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setMeal(e.target.value);
 	};
 
 	const [calorie, setCalorie] = useState<number>(500);
@@ -56,14 +56,29 @@ function IngredientFilter() {
 							className="stick-filter"
 						/>
 						<div className="input-form">
-							<input
-								type="number"
-								min="0"
+							<select
+								id="meal"
+								value={meal}
+								onChange={selectedMeal}
 								className="input"
-								value={ing}
-								onChange={selectedIng}
-							/>
-							<label htmlFor="number">Nombre d'ingrédients</label>
+							>
+								<option value="">-- Chose --</option>
+								<option value="Beef">Beef</option>
+								<option value="Breakfast">Breakfast</option>
+								<option value="Chicken">Chicken</option>
+								<option value="Dessert">Dessert</option>
+								<option value="Goat">Goat</option>
+								<option value="Lamb">Lamb</option>
+								<option value="Miscellaneous">Miscellaneous</option>
+								<option value="Pasta">Pasta</option>
+								<option value="Pork">Pork</option>
+								<option value="Seafood">Seafood</option>
+								<option value="Side">Side</option>
+								<option value="Starter">Starter</option>
+								<option value="Vegan">Vegan</option>
+								<option value="Vegetarian">Vegetarian</option>
+							</select>
+							<label htmlFor="meal">Meal's type</label>
 						</div>
 						<div className="input-form">
 							<input

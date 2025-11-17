@@ -9,8 +9,8 @@ export default function Home() {
 	const getRecipes = () => {
 		fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
 			.then((response) => response.json())
-			.then((data) => {
-				setRecipes(data.meals);
+			.then((recipe) => {
+				setRecipes(recipe.meals);
 			});
 	};
 

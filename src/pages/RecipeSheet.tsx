@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { useReactToPrint } from "react-to-print";
 import cookingTimeIcon from "../assets/images/cooking-time.png";
 import eatingPersonIcon from "../assets/images/eating-person.png";
-import favoriteIcon from "../assets/images/favoris.png";
+import favoriteIcon from "../assets/images/favoris_empty.png";
 import printerIcon from "../assets/images/printer.png";
 import CalorieInfo from "../components/CalorieInfo";
 import type { Meal } from "../types/meal";

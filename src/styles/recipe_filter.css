@@ -3,14 +3,14 @@
 	width: 20em;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
+	align-items: flex-start;
 	font-family: var(--text-font);
 	font-size: 1.2em;
 }
 
 .button-filter {
 	background-color: var(--bg-color-lightred);
-	border: solid rgba(0, 0, 0, 0.3);
+	border-color: rgba(0, 0, 0, 0.3);
 	height: 67.2px;
 	width: 67.2px;
 	img {

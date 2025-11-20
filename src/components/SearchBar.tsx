@@ -6,6 +6,8 @@ import { SelectedIngredients } from "./SelectedIngredients";
 import { SuggestedRecipes } from "./SuggestedRecipes";
 
 import type { Ingredient, Recipe, SearchType } from "../types/search.ts";
+import IngredientFilter from "./IngredientFilter.tsx";
+import RecipeFilter from "./RecipeFilter.tsx";
 
 async function loadRecipes(): Promise<Recipe[]> {
 	const responses = await Promise.all(recipe_urls.map((url) => fetch(url)));
@@ -110,6 +112,7 @@ export function SearchBar() {
 						<img src="src/assets/images/search.png" alt="Search icon" />
 					</button>
 				</div>
+				{searchType === "recipe" ? <RecipeFilter /> : <IngredientFilter />}
 			</div>
 			<div className="search-results">
 				{searchType === "recipe"

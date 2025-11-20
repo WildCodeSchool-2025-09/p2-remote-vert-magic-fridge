@@ -1,6 +1,8 @@
 import { useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import { useFavorite } from "../contexts/FavoriteContext";
+import { SearchBar } from "../components/SearchBar";
+import type { RecipeType } from "../types/recipe";
 import "../styles/Home.css";
 import type { RecipeType } from "../types/recipe";
 
@@ -18,10 +20,16 @@ export default function Home() {
 
 	return (
 		<>
+			<SearchBar />
 			<section className="recipes-cards">
 				{recipes.map((recipe) => {
-					return <RecipeCard recipe={recipe} key={recipe.idMeal} />;
+					return (
+						<div key={recipe.idMeal} className="recipe-placeholder">
+							{recipe.strMeal}
+						</div>
+					);
 				})}
+
 				<button type="button" onClick={getRecipes}>
 					Get recipes
 				</button>

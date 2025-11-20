@@ -16,21 +16,21 @@ export function SelectedIngredients({
 
 	return (
 		<div className="selected-ingredients">
-			{selectedIngredients.map((i) => (
-				<div className="selected-ingredient-card" key={i.idIngredient}>
-					{i.strThumb ? (
+			{selectedIngredients.map((ingredient) => (
+				<div className="selected-ingredient-card" key={ingredient.idIngredient}>
+					{ingredient.strThumb ? (
 						<img
 							className="selected-ingredient-img"
-							src={i.strThumb}
-							alt={i.strIngredient}
+							src={ingredient.strThumb}
+							alt={ingredient.strIngredient}
 						/>
 					) : null}
-					<span>{i.strIngredient}</span>
+					<span>{ingredient.strIngredient}</span>
 					<button
 						className="selected-ingredient-btn"
 						type="button"
 						onClick={() => {
-							onRemoveIngredient(i);
+							onRemoveIngredient(ingredient);
 						}}
 					>
 						X

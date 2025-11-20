@@ -1,4 +1,4 @@
-export const meal_urls = [
+export const recipe_urls = [
 	"https://www.themealdb.com/api/json/v1/1/search.php?f=a",
 	"https://www.themealdb.com/api/json/v1/1/search.php?f=b",
 	"https://www.themealdb.com/api/json/v1/1/search.php?f=c",

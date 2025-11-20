@@ -18,30 +18,31 @@ export function FilteredIngredients({
 
 	return (
 		<div className="filtered-ingredient-list">
-			{filteredIngredients.map((i) => {
+			{filteredIngredients.map((filteredIngredient) => {
 				const isSelected = selectedIngredients.some(
-					(si) => si.idIngredient === i.idIngredient,
+					(selectedIngredient) =>
+						selectedIngredient.idIngredient === filteredIngredient.idIngredient,
 				);
 
 				return (
 					<button
 						type="button"
-						key={i.idIngredient}
+						key={filteredIngredient.idIngredient}
 						className={
 							isSelected
 								? "filtered-ingredient filtered-ingredient-selected"
 								: "filtered-ingredient filtered-ingredient-default"
 						}
-						onClick={() => onSelectIngredient(i)}
+						onClick={() => onSelectIngredient(filteredIngredient)}
 					>
-						{i.strThumb ? (
+						{filteredIngredient.strThumb ? (
 							<img
 								className="filtered-ingredient-img"
-								src={i.strThumb}
-								alt={i.strIngredient}
+								src={filteredIngredient.strThumb}
+								alt={filteredIngredient.strIngredient}
 							/>
 						) : null}
-						<span>{i.strIngredient}</span>
+						<span>{filteredIngredient.strIngredient}</span>
 					</button>
 				);
 			})}

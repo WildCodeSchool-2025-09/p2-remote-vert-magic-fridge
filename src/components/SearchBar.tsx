@@ -1,36 +1,35 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/SearchBar.css";
-import { meal_urls } from "../urls/meal-urls.ts";
+import { recipe_urls } from "../urls/recipe-urls.ts";
 import { FilteredIngredients } from "./FilteredIngredients";
 import { SelectedIngredients } from "./SelectedIngredients";
-import { SuggestedRecipies } from "./SuggestedRecipes";
+import { SuggestedRecipes } from "./SuggestedRecipes";
 
-import type { Ingredient, Meal, SearchType } from "../types/search.ts";
+import type { Ingredient, Recipe, SearchType } from "../types/search.ts";
 
-async function loadRecipes() {
-	const responses = await Promise.all(meal_urls.map((url) => fetch(url)));
+async function loadRecipes(): Promise<Recipe[]> {
+	const responses = await Promise.all(recipe_urls.map((url) => fetch(url)));
 	const results = await Promise.all(responses.map((res) => res.json()));
-	const allMealsRaw: Meal[] = results.flatMap((r) => r.meals || []);
+	let recipes: Recipe[] = results.flatMap((recipe) => recipe.meals || []);
 
-	/*Extraire les ingrédients de chaque recette et renvoyer une version qui contient la recette et un tableau d'ingrédients */
-	const meals = allMealsRaw.map((meal) => {
-		const strIngredients: string[] = [];
+	recipes = recipes.map((recipe) => {
+		const ingredients: string[] = [];
 
 		for (let i = 1; i <= 20; i++) {
-			const ingredient = meal[`strIngredient${i}` as keyof Meal];
+			const ingredient = recipe[`strIngredient${i}` as keyof Recipe];
 			if (
 				ingredient &&
 				typeof ingredient === "string" &&
 				ingredient.trim() !== ""
 			) {
-				strIngredients.push(ingredient);
+				ingredients.push(ingredient);
 			}
 		}
 
-		return { ...meal, strIngredients };
+		return { ...recipe, ingredients };
 	});
 
-	return meals;
+	return recipes;
 }
 
 async function loadIngredients() {
@@ -46,9 +45,9 @@ export function SearchBar() {
 	const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>(
 		[],
 	);
-	const [meals, setMeals] = useState<Meal[]>([]);
+	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	useEffect(() => {
-		loadRecipes().then((mealsFromApi) => setMeals(mealsFromApi));
+		loadRecipes().then((recipesFromApi) => setRecipes(recipesFromApi));
 		loadIngredients().then((ingredientsFromAPI) =>
 			setIngredients(ingredientsFromAPI),
 		);
@@ -57,24 +56,19 @@ export function SearchBar() {
 	const [searchType, setSearchType] = useState<SearchType>("ingredient");
 	const [search, setSearch] = useState<string>("");
 
-	const filteredMeals =
+	const filteredRecipes =
 		search.trim() === ""
 			? []
-			: meals.filter((m) =>
-					m.strMeal?.toLowerCase()?.includes(search?.toLowerCase()),
+			: recipes.filter((recipe) =>
+					recipe.strMeal?.toLowerCase()?.includes(search?.toLowerCase()),
 				);
 
-	const filteredIngredients = useMemo(() => {
-		if (search.trim() === "") {
-			return [];
-		}
-
-		const filter = ingredients.filter((i) => {
-			return i.strIngredient.toLowerCase().includes(search.toLowerCase());
-		});
-
-		return filter;
-	}, [search, ingredients]);
+	const filteredIngredients =
+		search.trim() === ""
+			? []
+			: ingredients.filter((ingredient) =>
+					ingredient.strIngredient.toLowerCase().includes(search.toLowerCase()),
+				);
 
 	return (
 		<div>
@@ -119,23 +113,23 @@ export function SearchBar() {
 			</div>
 			<div className="search-results">
 				{searchType === "recipe"
-					? filteredMeals.map((m) => <li key={m.idMeal}>{m.strMeal}</li>)
+					? filteredRecipes.map((recipe) => (
+							<li key={recipe.idMeal}>{recipe.strMeal}</li>
+						))
 					: null}
 
 				<FilteredIngredients
 					searchType={searchType}
 					filteredIngredients={filteredIngredients}
 					selectedIngredients={selectedIngredients}
-					onSelectIngredient={(i) => {
-						// On vérifie que l'ingrédient n'ait pas déjà été ajouté
+					onSelectIngredient={(ingredient) => {
 						const hasAlreadyBeenAdded = selectedIngredients.some(
 							(selectedIngredient) =>
-								i.idIngredient === selectedIngredient.idIngredient,
+								ingredient.idIngredient === selectedIngredient.idIngredient,
 						);
 
-						// Si l'ingrédient a déjà été select, on ne l'ajoute pas (sinon il sera en double)
 						if (!hasAlreadyBeenAdded) {
-							setSelectedIngredients([...selectedIngredients, i]);
+							setSelectedIngredients([...selectedIngredients, ingredient]);
 						}
 
 						setSearch("");
@@ -155,9 +149,9 @@ export function SearchBar() {
 					searchType={searchType}
 				/>
 
-				<SuggestedRecipies
+				<SuggestedRecipes
 					selectedIngredients={selectedIngredients}
-					meals={meals}
+					recipes={recipes}
 					searchType={searchType}
 				/>
 			</div>

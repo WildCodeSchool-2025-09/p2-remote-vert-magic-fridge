@@ -1,13 +1,13 @@
-import type { Ingredient, Meal, SearchType } from "../types/search.ts";
+import type { Ingredient, Recipe, SearchType } from "../types/search.ts";
 import "../styles/SearchBar.css";
 
-export function SuggestedRecipies({
+export function SuggestedRecipes({
 	selectedIngredients,
-	meals,
+	recipes,
 	searchType,
 }: {
 	selectedIngredients: Ingredient[];
-	meals: Meal[];
+	recipes: Recipe[];
 	searchType: SearchType;
 }) {
 	if (searchType !== "ingredient") {
@@ -21,16 +21,15 @@ export function SuggestedRecipies({
 		(selectedIngredient) => selectedIngredient.strIngredient,
 	);
 
-	const filteredMeals = meals.filter((meal) => {
-		const mealIngredientsLower = meal.strIngredients.map((ing) =>
-			ing.toLowerCase(),
+	const filteredRecipes = recipes.filter((recipe) => {
+		const recipeIngredientsLower = recipe.ingredients.map((ingredient) =>
+			ingredient.toLowerCase(),
 		);
 
-		// Pour afficher uniquement les recettes qui contiennent tous les ingrédients sélectionnés
 		const hasAllSelectedIngredients = selectedIngredientsAsString.every(
 			(selectedIngredient) =>
-				mealIngredientsLower.some((mealIngredient) =>
-					mealIngredient.includes(selectedIngredient.toLowerCase()),
+				recipeIngredientsLower.some((recipeIngredient) =>
+					recipeIngredient.includes(selectedIngredient.toLowerCase()),
 				),
 		);
 
@@ -50,9 +49,9 @@ export function SuggestedRecipies({
 				width: "100%",
 			}}
 		>
-			{filteredMeals.map((meal) => (
+			{filteredRecipes.map((recipe) => (
 				<div
-					key={meal.idMeal}
+					key={recipe.idMeal}
 					style={{
 						padding: 12,
 						backgroundColor: "#dbdbdbff",
@@ -65,10 +64,10 @@ export function SuggestedRecipies({
 						alignItems: "center",
 					}}
 				>
-					{meal.strMealThumb ? (
+					{recipe.strMealThumb ? (
 						<img
-							src={meal.strMealThumb}
-							alt={meal.strMeal}
+							src={recipe.strMealThumb}
+							alt={recipe.strMeal}
 							style={{
 								width: "100%",
 								height: "auto",
@@ -76,7 +75,7 @@ export function SuggestedRecipies({
 							}}
 						/>
 					) : null}
-					<span>{meal.strMeal}</span>
+					<span>{recipe.strMeal}</span>
 				</div>
 			))}
 		</div>

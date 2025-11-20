@@ -1,4 +1,4 @@
-export type Meal = {
+export type Recipe = {
 	idMeal: string;
 	strMeal: string;
 	strMealAlternate: string | null;
@@ -9,7 +9,6 @@ export type Meal = {
 	strTags: string | null;
 	strYoutube: string | null;
 
-	// Ingredients 1–20
 	strIngredient1: string | null;
 	strIngredient2: string | null;
 	strIngredient3: string | null;
@@ -31,7 +30,7 @@ export type Meal = {
 	strIngredient19: string | null;
 	strIngredient20: string | null;
 
-	strIngredients: string[];
+	ingredients: string[];
 
 	strSource: string | null;
 	strImageSource: string | null;

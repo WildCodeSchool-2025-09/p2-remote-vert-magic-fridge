@@ -1,10 +1,9 @@
 import { useState } from "react";
 import RecipeCard from "../components/RecipeCard";
-import { useFavorite } from "../contexts/FavoriteContext";
 import { SearchBar } from "../components/SearchBar";
+import { useFavorite } from "../contexts/FavoriteContext";
 import type { RecipeType } from "../types/recipe";
 import "../styles/Home.css";
-import type { RecipeType } from "../types/recipe";
 
 export default function Home() {
 	const { favoriteIds, setFavoriteIds } = useFavorite();

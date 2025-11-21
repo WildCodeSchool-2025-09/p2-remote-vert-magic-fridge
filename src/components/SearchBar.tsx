@@ -333,6 +333,7 @@ export function SearchBar() {
 					selectedIngredients={selectedIngredients}
 					recipes={recipes}
 					searchType={searchType}
+					mealIngBar={mealIngBar}
 				/>
 			</div>
 		</div>

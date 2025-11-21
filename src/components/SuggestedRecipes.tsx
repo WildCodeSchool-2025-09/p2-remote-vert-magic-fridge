@@ -7,10 +7,12 @@ export function SuggestedRecipes({
 	selectedIngredients,
 	recipes,
 	searchType,
+	mealIngBar,
 }: {
 	selectedIngredients: Ingredient[];
 	recipes: Recipe[];
 	searchType: SearchType;
+	mealIngBar: string;
 }) {
 	if (searchType !== "ingredient") {
 		return null;
@@ -38,9 +40,11 @@ export function SuggestedRecipes({
 		return hasAllSelectedIngredients;
 	});
 
-	/* Je vais remplacer cette partie par le composant RecipeCard de Julien
-	 alors faites pas attention à l'inline css svp. Merci. */
-	return filteredRecipes.map((recipe) => (
-		<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
-	));
+	return filteredRecipes
+		.filter((recipe) =>
+			mealIngBar === "" ? true : recipe.strCategory === mealIngBar,
+		)
+		.map((recipe) => (
+			<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
+		));
 }

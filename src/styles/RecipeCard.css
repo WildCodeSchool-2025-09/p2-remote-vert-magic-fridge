@@ -18,7 +18,7 @@ h2 {
 hr {
 	border: 1px solid var(--bg-color-darkred);
 	width: 200px;
-	margin: 0 0 0 10;
+	margin: 0 auto;
 }
 
 .recipe-card-favorites {

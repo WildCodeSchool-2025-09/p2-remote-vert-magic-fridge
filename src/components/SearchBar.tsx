@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../styles/SearchBar.css";
 import "../styles/Filter.css";
 import type { ChangeEvent } from "react";
+import { useFavorite } from "../contexts/FavoriteContext.tsx";
 import type { RecipeType } from "../types/recipe.ts";
 import type { Ingredient, Recipe, SearchType } from "../types/search.ts";
 import { recipe_urls } from "../urls/recipe-urls.ts";
@@ -44,6 +45,7 @@ async function loadIngredients() {
 }
 
 export function SearchBar() {
+	const { favoriteRecipes, setFavoriteRecipes } = useFavorite();
 	const [timeRecipeBar, setTimeRecipeBar] = useState<number>(50);
 	const selectedTimeRecipeBar = (e: ChangeEvent<HTMLInputElement>) => {
 		setTimeRecipeBar(Number(e.target.value));
@@ -94,11 +96,18 @@ export function SearchBar() {
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 
 	useEffect(() => {
-		loadRecipes().then((recipesFromApi) => setRecipes(recipesFromApi));
+		loadRecipes().then((recipesFromApi) => {
+			setRecipes(recipesFromApi);
+			const idFavoriteRecipes = favoriteRecipes.map((recipe) => recipe.idMeal);
+			const newFavoriteRecipes = recipesFromApi.filter((meal) =>
+				idFavoriteRecipes.includes(meal.idMeal),
+			);
+			setFavoriteRecipes(newFavoriteRecipes);
+		});
 		loadIngredients().then((ingredientsFromAPI) =>
 			setIngredients(ingredientsFromAPI),
 		);
-	}, []);
+	}, [favoriteRecipes, setFavoriteRecipes]);
 
 	const [searchType, setSearchType] = useState<SearchType>("ingredient");
 	const [search, setSearch] = useState<string>("");

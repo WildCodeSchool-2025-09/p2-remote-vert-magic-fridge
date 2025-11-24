@@ -8,8 +8,6 @@ function App() {
 	return (
 		<>
 			<NavBar />
-			<Link to="/">Home</Link>
-			<Link to="/favorite">Favorite</Link>
 			<Outlet />
 		</>
 	);

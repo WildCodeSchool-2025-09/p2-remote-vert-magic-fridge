@@ -3,6 +3,7 @@ import starFull from "../assets/images/favoris_full.png";
 import type { RecipeType } from "../types/recipe";
 import prepTime from "../utils/prepTime";
 import "../styles/RecipeCard.css";
+import { Link } from "react-router";
 import prepIcon from "../assets/images/preparation_time.png";
 import { useFavorite } from "../contexts/FavoriteContext";
 
@@ -41,9 +42,13 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
 						<img src={prepIcon} alt="" width={24} />
 						{prepTime(recipe.strInstructions, recipe.idMeal)} min
 					</p>
-					<button type="button" className="recipe-card-button">
+					<Link
+						to={`/recipe/${recipe.idMeal}`}
+						className="recipe-card-button"
+						target="blank"
+					>
 						Recipe
-					</button>
+					</Link>
 					<button
 						type="button"
 						onClick={() => toggleFavorite(recipe)}

@@ -1,15 +1,16 @@
+import { Link } from "react-router";
 import "../styles/NavBar.css";
 
 export default function NavBar() {
 	return (
 		<nav className="global-nav">
-			<a href="/" className="nav-logo">
+			<Link to="/" className="nav-logo">
 				<img
 					src="/src/assets/images/logo.png"
 					alt="logo"
 					className="logo-image"
 				/>
-			</a>
+			</Link>
 			<ul className="nav-links">
 				<li>
 					<a href="/signup">Sign up</a>
@@ -18,7 +19,7 @@ export default function NavBar() {
 					<a href="/blog">Blog</a>
 				</li>
 				<li>
-					<a href="/favorites">Favorites</a>
+					<Link to="/favorite">Favorite</Link>
 				</li>
 			</ul>
 		</nav>

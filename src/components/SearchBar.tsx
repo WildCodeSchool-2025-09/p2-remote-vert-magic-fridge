@@ -102,7 +102,7 @@ export function SearchBar() {
 			const newFavoriteRecipes = recipesFromApi.filter((meal) =>
 				idFavoriteRecipes.includes(meal.idMeal),
 			);
-			setFavoriteRecipes(newFavoriteRecipes);
+			setFavoriteRecipes(newFavoriteRecipes as RecipeType[]);
 		});
 		loadIngredients().then((ingredientsFromAPI) =>
 			setIngredients(ingredientsFromAPI),

@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
-import type { RecipeType } from "../types/recipe";
+import type { Recipe } from "../types/search";
 
 type FavoriteState = {
-	favoriteRecipes: RecipeType[];
-	setFavoriteRecipes: React.Dispatch<React.SetStateAction<RecipeType[]>>;
+	favoriteRecipes: Recipe[];
+	setFavoriteRecipes: React.Dispatch<React.SetStateAction<Recipe[]>>;
 };
 
 const FavoriteContext = createContext<FavoriteState>({
@@ -15,7 +15,7 @@ const FavoriteContext = createContext<FavoriteState>({
 export default function FavoriteProvider({
 	children,
 }: { children: ReactNode }) {
-	const [favoriteRecipes, setFavoriteRecipes] = useState<RecipeType[]>([]);
+	const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>([]);
 
 	return (
 		<FavoriteContext.Provider value={{ favoriteRecipes, setFavoriteRecipes }}>

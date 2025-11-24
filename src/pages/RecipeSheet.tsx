@@ -3,25 +3,34 @@ import { useParams } from "react-router";
 import { useReactToPrint } from "react-to-print";
 import cookingTimeIcon from "../assets/images/cooking-time.png";
 import eatingPersonIcon from "../assets/images/eating-person.png";
-import favoriteIcon from "../assets/images/favoris_empty.png";
+import starEmpty from "../assets/images/favoris_empty.png";
+import starFull from "../assets/images/favoris_full.png";
 import printerIcon from "../assets/images/printer.png";
 import CalorieInfo from "../components/CalorieInfo";
-import type { Recipe } from "../types/meal";
+import type { Recipe } from "../types/search";
 
 import "../styles/RecipeSheet.css";
+import { useFavorite } from "../contexts/FavoriteContext";
 
 export default function RecipeSheet() {
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const { id } = useParams<{ id: string }>();
-
+	const { favoriteRecipes, setFavoriteRecipes } = useFavorite();
+	const isFavorite = favoriteRecipes.includes(recipe as Recipe);
 	const printRef = useRef<HTMLDivElement | null>(null);
 
 	const handlePrint = useReactToPrint({
 		contentRef: printRef,
 		documentTitle: "Recipe",
 	});
+
+	function toggleFavorite() {
+		if (!favoriteRecipes.find((recipe) => recipe.idMeal === id)) {
+			setFavoriteRecipes((prev) => [...prev, recipe]);
+		}
+	}
 
 	useEffect(() => {
 		const fetchRecipe = async () => {
@@ -34,7 +43,7 @@ export default function RecipeSheet() {
 					throw new Error("Erreur API");
 				}
 
-				const recipeData = (await response.json()) as { meals: Recipe[] };
+				const recipeData = await response.json();
 				setRecipe(recipeData.meals[0]);
 			} catch (err) {
 				if (err instanceof Error) {
@@ -64,7 +73,7 @@ export default function RecipeSheet() {
 		const measure = recipe[`strMeasure${i}`];
 
 		if (ing && ing.trim() !== "") {
-			ingredients.push(`${ing} - ${measure ?? ""}`.trim());
+			ingredients.push(`${ing} - ${measure}`.trim());
 		}
 	}
 
@@ -83,8 +92,17 @@ export default function RecipeSheet() {
 										type="button"
 										className="icon-button icon-button--primary icon-button--favorite"
 										title="Favorites"
+										onClick={() => toggleFavorite()}
+										aria-pressed={isFavorite}
+										aria-label={
+											isFavorite ? "Remove from favorites" : "Add to favorites"
+										}
 									>
-										<img src={favoriteIcon} alt="Add to favorites" />
+										<img
+											src={isFavorite ? starFull : starEmpty}
+											width={24}
+											alt=""
+										/>
 									</button>
 									<button
 										type="button"

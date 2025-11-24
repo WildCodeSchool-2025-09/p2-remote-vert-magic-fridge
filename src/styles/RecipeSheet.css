@@ -71,7 +71,7 @@ body {
 
 .recipe-hero-figure img {
 	width: 100%;
-	height: clamp(260px, 40vh, 420px);
+	height: clamp(260px, 64vh, 500px);
 	object-fit: cover;
 	object-position: center center;
 	display: block;

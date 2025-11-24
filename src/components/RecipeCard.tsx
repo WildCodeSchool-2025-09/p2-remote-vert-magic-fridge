@@ -1,6 +1,6 @@
 import starEmpty from "../assets/images/favoris_empty.png";
 import starFull from "../assets/images/favoris_full.png";
-import type { RecipeType } from "../types/recipe";
+import type { Recipe } from "../types/search";
 import prepTime from "../utils/prepTime";
 import "../styles/RecipeCard.css";
 import { Link } from "react-router";
@@ -8,14 +8,14 @@ import prepIcon from "../assets/images/preparation_time.png";
 import { useFavorite } from "../contexts/FavoriteContext";
 
 export interface RecipeCardProps {
-	recipe: RecipeType;
+	recipe: Recipe;
 }
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
 	const { favoriteRecipes, setFavoriteRecipes } = useFavorite();
 	const isFavorite = favoriteRecipes.includes(recipe);
 
-	function toggleFavorite(recipe: RecipeType) {
+	function toggleFavorite(recipe: Recipe) {
 		if (!favoriteRecipes.includes(recipe)) {
 			setFavoriteRecipes((prev) => [...prev, recipe]);
 		} else {
@@ -35,7 +35,11 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
 					alt={recipe.strMeal}
 					className="recipe-card-picture"
 				/>
-				<h2>{recipe.strMeal}</h2>
+				<h2>
+					{recipe.strMeal.length >= 40
+						? `${recipe.strMeal.slice(0, 40)}...`
+						: recipe.strMeal}
+				</h2>
 				<hr />
 				<span className="recipe-card-infos">
 					<p className="recipe-card-prep-time">

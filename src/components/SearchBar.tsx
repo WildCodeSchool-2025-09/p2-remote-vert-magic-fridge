@@ -3,7 +3,6 @@ import "../styles/SearchBar.css";
 import "../styles/Filter.css";
 import type { ChangeEvent } from "react";
 import { useFavorite } from "../contexts/FavoriteContext.tsx";
-import type { RecipeType } from "../types/recipe.ts";
 import type { Ingredient, Recipe, SearchType } from "../types/search.ts";
 import { recipe_urls } from "../urls/recipe-urls.ts";
 import { FilteredIngredients } from "./FilteredIngredients";
@@ -102,7 +101,7 @@ export function SearchBar() {
 			const newFavoriteRecipes = recipesFromApi.filter((meal) =>
 				idFavoriteRecipes.includes(meal.idMeal),
 			);
-			setFavoriteRecipes(newFavoriteRecipes as RecipeType[]);
+			setFavoriteRecipes(newFavoriteRecipes as Recipe[]);
 		});
 		loadIngredients().then((ingredientsFromAPI) =>
 			setIngredients(ingredientsFromAPI),
@@ -304,7 +303,7 @@ export function SearchBar() {
 								: recipe.strCategory === mealRecipeBar,
 						)
 						.map((recipe) => (
-							<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
+							<RecipeCard key={recipe.idMeal} recipe={recipe as Recipe} />
 						))}
 
 				<FilteredIngredients

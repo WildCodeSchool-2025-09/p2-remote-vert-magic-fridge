@@ -27,6 +27,8 @@ hr {
 }
 
 .recipe-card-button {
+	text-decoration: none;
+	color: #000000;
 	font-family: var(--text-font);
 	height: 20px;
 	width: 83px;

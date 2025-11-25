@@ -40,11 +40,23 @@ export function SuggestedRecipes({
 		return hasAllSelectedIngredients;
 	});
 
-	return filteredRecipes
-		.filter((recipe) =>
+	if (
+		filteredRecipes.filter((recipe) =>
 			mealIngBar === "" ? true : recipe.strCategory === mealIngBar,
-		)
-		.map((recipe) => (
-			<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
-		));
+		).length === 0
+	) {
+		return <p className="empty-recipe">No recipe found</p>;
+	}
+
+	return (
+		<div className="recipe-results-container">
+			{filteredRecipes
+				.filter((recipe) =>
+					mealIngBar === "" ? true : recipe.strCategory === mealIngBar,
+				)
+				.map((recipe) => (
+					<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
+				))}
+		</div>
+	);
 }

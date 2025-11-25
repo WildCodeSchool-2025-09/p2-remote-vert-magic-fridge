@@ -1,52 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/SearchBar.css";
 import "../styles/Filter.css";
 import type { ChangeEvent } from "react";
-import { useFavorite } from "../contexts/FavoriteContext.tsx";
 import { useTheme } from "../contexts/ThemeContext.tsx";
 import type { RecipeType } from "../types/recipe.ts";
 import type { Ingredient, Recipe, SearchType } from "../types/search.ts";
-import { recipe_urls } from "../urls/recipe-urls.ts";
 import { FilteredIngredients } from "./FilteredIngredients";
 import RecipeCard from "./RecipeCard.tsx";
 import { SelectedIngredients } from "./SelectedIngredients";
 import { SuggestedRecipes } from "./SuggestedRecipes";
 
-async function loadRecipes(): Promise<Recipe[]> {
-	const responses = await Promise.all(recipe_urls.map((url) => fetch(url)));
-	const results = await Promise.all(responses.map((res) => res.json()));
-	let recipes: Recipe[] = results.flatMap((recipe) => recipe.meals || []);
-
-	recipes = recipes.map((recipe) => {
-		const ingredients: string[] = [];
-
-		for (let i = 1; i <= 20; i++) {
-			const ingredient = recipe[`strIngredient${i}` as keyof Recipe];
-			if (
-				ingredient &&
-				typeof ingredient === "string" &&
-				ingredient.trim() !== ""
-			) {
-				ingredients.push(ingredient);
-			}
-		}
-
-		return { ...recipe, ingredients };
-	});
-
-	return recipes;
-}
-
-async function loadIngredients() {
-	const response = await fetch(
-		"https://www.themealdb.com/api/json/v1/1/list.php?i=list",
-	);
-	const result = await response.json();
-	return result.meals as Ingredient[];
-}
-
-export function SearchBar() {
-	const { favoriteRecipes, setFavoriteRecipes } = useFavorite();
+export function SearchBar({
+	recipes,
+	ingredients,
+}: { recipes: Recipe[]; ingredients: Ingredient[] }) {
 	const [timeRecipeBar, setTimeRecipeBar] = useState<number>(50);
 	const selectedTimeRecipeBar = (e: ChangeEvent<HTMLInputElement>) => {
 		setTimeRecipeBar(Number(e.target.value));
@@ -90,27 +57,9 @@ export function SearchBar() {
 			setOpen(true);
 		}
 	};
-	const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 	const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>(
 		[],
 	);
-	const [recipes, setRecipes] = useState<Recipe[]>([]);
-	const { theme, setTheme } = useTheme();
-
-	useEffect(() => {
-		loadRecipes().then((recipesFromApi) => {
-			setRecipes(recipesFromApi);
-			const idFavoriteRecipes = favoriteRecipes.map((recipe) => recipe.idMeal);
-			const newFavoriteRecipes = recipesFromApi.filter((meal) =>
-				idFavoriteRecipes.includes(meal.idMeal),
-			);
-			setFavoriteRecipes(newFavoriteRecipes as RecipeType[]);
-		});
-		loadIngredients().then((ingredientsFromAPI) =>
-			setIngredients(ingredientsFromAPI),
-		);
-		setTheme(false);
-	}, [favoriteRecipes, setFavoriteRecipes, setTheme]);
 
 	const [searchType, setSearchType] = useState<SearchType>("ingredient");
 	const [search, setSearch] = useState<string>("");
@@ -128,6 +77,12 @@ export function SearchBar() {
 			: ingredients.filter((ingredient) =>
 					ingredient.strIngredient.toLowerCase().includes(search.toLowerCase()),
 				);
+
+	const finalRecipes = filteredRecipes.filter((recipe) =>
+		mealRecipeBar === "" ? true : recipe.strCategory === mealRecipeBar,
+	);
+
+	const { theme, setTheme } = useTheme();
 
 	return (
 		<div>
@@ -300,16 +255,17 @@ export function SearchBar() {
 				)}
 			</div>
 			<div className="search-results">
-				{searchType === "recipe" &&
-					filteredRecipes
-						.filter((recipe) =>
-							mealRecipeBar === ""
-								? true
-								: recipe.strCategory === mealRecipeBar,
-						)
-						.map((recipe) => (
-							<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
-						))}
+				{searchType === "recipe" && (
+					<div className="recipe-results-container">
+						{search.trim() === "" ? null : finalRecipes.length === 0 ? (
+							<div className="empty-recipe">No recipe found</div>
+						) : (
+							finalRecipes.map((recipe) => (
+								<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
+							))
+						)}
+					</div>
+				)}
 
 				<FilteredIngredients
 					searchType={searchType}

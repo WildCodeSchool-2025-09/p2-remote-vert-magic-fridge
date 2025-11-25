@@ -2,7 +2,8 @@ import { useRef } from "react";
 import type { RecipeType } from "../types/recipe";
 import type { Recipe } from "../types/search";
 import RecipeCard from "./RecipeCard";
-import "../styles/Suggestion.css";
+import "../styles/suggestion.css";
+import "../styles/RecipeCard.css";
 
 export default function Suggestions({ recipes }: { recipes: Recipe[] }) {
 	const randomizedRecipes = [...recipes]
@@ -28,29 +29,35 @@ export default function Suggestions({ recipes }: { recipes: Recipe[] }) {
 	return (
 		<div className="carousel">
 			<h1 className="carousel-title">SUGGESTIONS</h1>
-			<button
-				type="button"
-				className="carousel-btn carousel-btn-left"
-				onClick={() => scrollByCards("left")}
-			>
-				❮
-			</button>
+			{recipes.length === 0 ? (
+				<div className="carousel-loading">Loading...</div>
+			) : (
+				<div className="carousel-inner">
+					<button
+						type="button"
+						className="carousel-btn carousel-btn-left"
+						onClick={() => scrollByCards("left")}
+					>
+						❮
+					</button>
 
-			<div className="carousel-track" ref={trackRef}>
-				{randomizedRecipes.map((recipe) => (
-					<div className="carousel-item" key={recipe.idMeal}>
-						<RecipeCard recipe={recipe as RecipeType} />
+					<div className="carousel-track" ref={trackRef}>
+						{randomizedRecipes.map((recipe) => (
+							<div className="carousel-item" key={recipe.idMeal}>
+								<RecipeCard recipe={recipe as RecipeType} />
+							</div>
+						))}
 					</div>
-				))}
-			</div>
 
-			<button
-				type="button"
-				className="carousel-btn carousel-btn-right"
-				onClick={() => scrollByCards("right")}
-			>
-				❯
-			</button>
+					<button
+						type="button"
+						className="carousel-btn carousel-btn-right"
+						onClick={() => scrollByCards("right")}
+					>
+						❯
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }

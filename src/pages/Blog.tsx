@@ -4,8 +4,6 @@ import blogImageFrigo from "../assets/images/blog-image-frigo.jpg";
 
 import { useState } from "react";
 
-import "../styles/Blog.css";
-
 export default function Blog() {
 	const [openArticle, setOpenArticle] = useState<number | null>(null);
 

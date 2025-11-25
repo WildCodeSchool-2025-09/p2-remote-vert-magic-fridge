@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import Suggestions from "../components/Suggestion";
 import { useFavorite } from "../contexts/FavoriteContext";
-import "../styles/Home.css";
 import type { RecipeType } from "../types/recipe";
 import type { Ingredient, Recipe } from "../types/search";
 import { recipe_urls } from "../urls/recipe-urls";

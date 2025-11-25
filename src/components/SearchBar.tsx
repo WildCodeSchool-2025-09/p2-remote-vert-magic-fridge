@@ -77,6 +77,10 @@ export function SearchBar({
 					ingredient.strIngredient.toLowerCase().includes(search.toLowerCase()),
 				);
 
+	const finalRecipes = filteredRecipes.filter((recipe) =>
+		mealRecipeBar === "" ? true : recipe.strCategory === mealRecipeBar,
+	);
+
 	return (
 		<div>
 			<div className="search">
@@ -247,16 +251,17 @@ export function SearchBar({
 				)}
 			</div>
 			<div className="search-results">
-				{searchType === "recipe" &&
-					filteredRecipes
-						.filter((recipe) =>
-							mealRecipeBar === ""
-								? true
-								: recipe.strCategory === mealRecipeBar,
-						)
-						.map((recipe) => (
-							<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
-						))}
+				{searchType === "recipe" && (
+					<div className="recipe-results-container">
+						{search.trim() === "" ? null : finalRecipes.length === 0 ? (
+							<div className="empty-recipe">No recipe found</div>
+						) : (
+							finalRecipes.map((recipe) => (
+								<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
+							))
+						)}
+					</div>
+				)}
 
 				<FilteredIngredients
 					searchType={searchType}

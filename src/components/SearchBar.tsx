@@ -3,6 +3,7 @@ import "../styles/SearchBar.css";
 import "../styles/Filter.css";
 import type { ChangeEvent } from "react";
 import { useFavorite } from "../contexts/FavoriteContext.tsx";
+import { useTheme } from "../contexts/ThemeContext.tsx";
 import type { RecipeType } from "../types/recipe.ts";
 import type { Ingredient, Recipe, SearchType } from "../types/search.ts";
 import { recipe_urls } from "../urls/recipe-urls.ts";
@@ -10,7 +11,6 @@ import { FilteredIngredients } from "./FilteredIngredients";
 import RecipeCard from "./RecipeCard.tsx";
 import { SelectedIngredients } from "./SelectedIngredients";
 import { SuggestedRecipes } from "./SuggestedRecipes";
-import { useTheme } from "../contexts/ThemeContext.tsx";
 
 async function loadRecipes(): Promise<Recipe[]> {
 	const responses = await Promise.all(recipe_urls.map((url) => fetch(url)));

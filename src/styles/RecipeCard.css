@@ -4,7 +4,7 @@
 	justify-content: space-between;
 	border-radius: 0 0 5px 5px;
 	box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-	width:300px;
+	width: 300px;
 	height: 288px;
 	font-family: var(--text-font);
 	background-color: var(--bg-color-fiche);
@@ -30,7 +30,7 @@ hr {
 	width: 40px;
 	border-radius: 100px;
 	border: none;
-	background-color:;
+	background-color: ;
 	border-radius: 50%;
 	cursor: pointer;
 	transition: background-color .2s ease, transform .2s ease;
@@ -61,11 +61,11 @@ hr {
 
 .recipe-card-button:hover {
 	opacity: 0.8;
-	background-color: var(--bg-color-brightred)
+	background-color: var(--bg-color-brightred);
 }
 
-.recipe-card-button:hover img{
-	filter: brightness(0) invert(1);	
+.recipe-card-button:hover img {
+	filter: brightness(0) invert(1);
 }
 
 .recipe-card-picture {

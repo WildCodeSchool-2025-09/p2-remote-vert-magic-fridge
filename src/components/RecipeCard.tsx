@@ -1,6 +1,6 @@
+import Cook from "../assets/images/chef.png";
 import starEmpty from "../assets/images/favoris_empty.png";
 import starFull from "../assets/images/favoris_full.png";
-import Cook from "../assets/images/chef.png";
 import type { RecipeType } from "../types/recipe";
 import prepTime from "../utils/prepTime";
 import "../styles/RecipeCard.css";

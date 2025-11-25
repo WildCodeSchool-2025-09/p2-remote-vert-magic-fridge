@@ -5,7 +5,7 @@ export type Recipe = {
 	strCategory: string | null;
 	strArea: string | null;
 	strInstructions: string;
-	strMealThumb: string | null;
+	strMealThumb: string;
 	strTags: string | null;
 	strYoutube: string | null;
 
@@ -29,7 +29,26 @@ export type Recipe = {
 	strIngredient18: string | null;
 	strIngredient19: string | null;
 	strIngredient20: string | null;
-
+	strMeasure1: string | null;
+	strMeasure2: string | null;
+	strMeasure3: string | null;
+	strMeasure4: string | null;
+	strMeasure5: string | null;
+	strMeasure6: string | null;
+	strMeasure7: string | null;
+	strMeasure8: string | null;
+	strMeasure9: string | null;
+	strMeasure10: string | null;
+	strMeasure11: string | null;
+	strMeasure12: string | null;
+	strMeasure13: string | null;
+	strMeasure14: string | null;
+	strMeasure15: string | null;
+	strMeasure16: string | null;
+	strMeasure17: string | null;
+	strMeasure18: string | null;
+	strMeasure19: string | null;
+	strMeasure20: string | null;
 	ingredients: string[];
 
 	strSource: string | null;

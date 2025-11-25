@@ -68,12 +68,38 @@ export default function RecipeSheet() {
 	}
 
 	const ingredients: string[] = [];
-	for (let i = 1; i <= 20; i += 1) {
-		const ing = recipe[`strIngredient${i}`];
-		const measure = recipe[`strMeasure${i}`];
+	const ingredientsLoading: string[] = [];
 
-		if (ing && ing.trim() !== "") {
-			ingredients.push(`${ing} - ${measure}`.trim());
+	const ing = Object.values(recipe).slice(9, 29);
+	const measure = Object.values(recipe).slice(29, 49);
+	const space = " - ";
+
+	for (let i = 0; i <= 19; i++) {
+		if (
+			typeof ing[i] !== "string" ||
+			ing[i] !== "" ||
+			ing[i] !== " " ||
+			typeof measure[i] === "string" ||
+			measure[i] !== "" ||
+			measure[i] !== " "
+		) {
+			const calorieSearch = ((ing[i] as string) +
+				space +
+				(measure[i] === " " ? "to taste" : measure[i])) as string;
+			ingredientsLoading.push(calorieSearch);
+		}
+	}
+
+	for (let i = 0; i <= 19; i++) {
+		if (
+			ingredientsLoading[i] !== " " &&
+			ingredientsLoading[i] !== "" &&
+			typeof ingredientsLoading[i] === "string" &&
+			ingredientsLoading[i] !== " - " &&
+			ingredientsLoading[i] !== " -  " &&
+			ingredientsLoading[i] !== " - to taste"
+		) {
+			ingredients.push(ingredientsLoading[i]);
 		}
 	}
 

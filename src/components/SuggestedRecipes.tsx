@@ -1,6 +1,5 @@
 import type { Ingredient, Recipe, SearchType } from "../types/search.ts";
 import "../styles/SearchBar.css";
-import type { RecipeType } from "../types/recipe.ts";
 import RecipeCard from "./RecipeCard.tsx";
 
 export function SuggestedRecipes({
@@ -45,6 +44,6 @@ export function SuggestedRecipes({
 			mealIngBar === "" ? true : recipe.strCategory === mealIngBar,
 		)
 		.map((recipe) => (
-			<RecipeCard key={recipe.idMeal} recipe={recipe as RecipeType} />
+			<RecipeCard key={recipe.idMeal} recipe={recipe as Recipe} />
 		));
 }

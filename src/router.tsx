@@ -6,6 +6,7 @@ import Favorite from "./pages/Favorite.tsx";
 import Home from "./pages/Home.tsx";
 import RecipeSheet from "./pages/RecipeSheet.tsx";
 import Recipes from "./pages/Recipes.tsx";
+import SignUp from "./pages/SignUp.tsx";
 
 export const router = createBrowserRouter([
 	{
@@ -14,6 +15,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Home />,
+			},
+			{
+				path: "/sign-up",
+				element: <SignUp />,
 			},
 			{
 				path: "/blog",

@@ -40,7 +40,7 @@ export default function NavBar() {
 			<ul className={`nav-links ${isMenuOpen ? "nav-links--open" : ""}`}>
 				<li>
 					<Link
-						to="/"
+						to="/sign-up"
 						onClick={handleCloseMenu}
 						className={`nav-link ${isActive("/") ? "nav-link--active" : ""}`}
 					>

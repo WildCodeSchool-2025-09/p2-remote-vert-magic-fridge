@@ -42,7 +42,7 @@ export default function NavBar() {
 					<Link
 						to="/sign-up"
 						onClick={handleCloseMenu}
-						className={`nav-link ${isActive("/") ? "nav-link--active" : ""}`}
+						className={`nav-link ${isActive("/sign-up") ? "nav-link--active" : ""}`}
 					>
 						Sign up
 					</Link>

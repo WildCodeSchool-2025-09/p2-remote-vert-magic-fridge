@@ -6,9 +6,13 @@ import "../styles/suggestion.css";
 import "../styles/RecipeCard.css";
 
 export default function Suggestions({ recipes }: { recipes: Recipe[] }) {
-	const randomizedRecipes = [...recipes]
-		.sort(() => Math.random() - 0.5)
-		.slice(0, 8);
+	const randomizedRecipes = useRef<Recipe[] | null>(null);
+	if (!randomizedRecipes.current && recipes.length > 0) {
+		randomizedRecipes.current = [...recipes]
+			.sort(() => Math.random() - 0.5)
+			.slice(0, 8);
+	}
+	const randomRecipes = randomizedRecipes.current ?? [];
 
 	const trackRef = useRef<HTMLDivElement | null>(null);
 
@@ -42,7 +46,7 @@ export default function Suggestions({ recipes }: { recipes: Recipe[] }) {
 					</button>
 
 					<div className="carousel-track" ref={trackRef}>
-						{randomizedRecipes.map((recipe) => (
+						{randomRecipes.map((recipe) => (
 							<div className="carousel-item" key={recipe.idMeal}>
 								<RecipeCard recipe={recipe as RecipeType} />
 							</div>

@@ -294,7 +294,7 @@ export default function Blog() {
 				<p className="article-meta">
 					<strong className="article-author">
 						<a
-							href="https://www.linkedin.com/in/julien-paultes/"
+							href="https://www.linkedin.com/in/yuliana-krasulya/"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="article-author-link"

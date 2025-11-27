@@ -94,14 +94,14 @@ figure {
 }
 
 .icon-button--primary {
-	width: 56px;
-	height: 56px;
+	width: 40px;
+	height: 40px;
 	background-color: rgba(245, 240, 236, 0.9);
 }
 
 .icon-button--primary img {
-	width: 35px;
-	height: 35px;
+	width: 25px;
+	height: 25px;
 }
 
 .recipe-kcal-styled {

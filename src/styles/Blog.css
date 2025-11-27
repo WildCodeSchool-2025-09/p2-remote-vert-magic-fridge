@@ -69,10 +69,14 @@
 .article-intro,
 .article-full-text {
 	font-family: var(--text-font);
-	font-size: 1rem;
-	line-height: 1.6;
+	font-size: 1.1rem;
 	text-align: left;
 	color: var(--text-color-blk);
+	word-break: normal;
+	overflow-wrap: break-word;
+	max-width: 70ch;
+	margin-left: 1.5rem;
+	margin-right: 0.5rem;
 }
 
 .article-intro {
@@ -81,7 +85,9 @@
 
 .article-full-text em {
 	font-style: italic;
-	color: var(--text-color-ftr);
+	color: var(--text-color-blk);
+	font-weight: 600;
+	opacity: 0.95;
 }
 
 .article-full-text strong {
@@ -92,8 +98,6 @@
 .article-full-text ul {
 	text-align: left;
 	padding-left: 1.4rem;
-	margin-top: 0.4rem;
-	margin-bottom: 0.4rem;
 }
 
 .blog-image {
@@ -125,4 +129,16 @@
 	background-color: var(--bg-color-brightred);
 	border-color: var(--bg-color-darkred);
 	color: var(--text-color-wht);
+}
+
+.article-author-link {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+	transition: color 0.2s ease;
+}
+
+.article-author-link:hover {
+	color: var(--bg-color-brightred);
+	text-decoration: underline;
 }

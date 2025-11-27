@@ -3,20 +3,19 @@ import { useParams } from "react-router";
 import { useReactToPrint } from "react-to-print";
 import cookingTimeIcon from "../assets/images/cooking-time.png";
 import eatingPersonIcon from "../assets/images/eating-person.png";
-import starEmpty from "../assets/images/favoris_empty.png";
-import starFull from "../assets/images/favoris_full.png";
 import printerIcon from "../assets/images/printer.png";
 import CalorieInfo from "../components/CalorieInfo";
 import type { Recipe } from "../types/meal";
 
 import "../styles/RecipeSheet.css";
+import FavoriteButton from "../components/FavoriteButton";
+import type { RecipeType } from "../types/recipe";
 
 export default function RecipeSheet() {
-	const [recipe, setRecipe] = useState<Recipe | null>(null);
+	const [recipe, setRecipe] = useState<RecipeType | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const { id } = useParams<{ id: string }>();
-	const [isFavorite, setIsFavorite] = useState(false);
 
 	const printRef = useRef<HTMLDivElement | null>(null);
 
@@ -81,17 +80,7 @@ export default function RecipeSheet() {
 
 								<section className="recipe-buttons">
 									<div className="recipe-buttons-row recipe-buttons-row--top">
-										<button
-											type="button"
-											className="icon-button icon-button--primary icon-button--favorite"
-											title="Favorites"
-											onClick={() => setIsFavorite(!isFavorite)}
-										>
-											<img
-												src={isFavorite ? starFull : starEmpty}
-												alt="Add to favorites"
-											/>
-										</button>
+										<FavoriteButton recipe={recipe} />
 										<button
 											type="button"
 											onClick={handlePrint}

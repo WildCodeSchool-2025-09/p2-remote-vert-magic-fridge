@@ -70,7 +70,7 @@ export default function RecipeSheet() {
 	}
 
 	const title = recipe.strMeal;
-	const isLongTitle = title.length > 40;
+	const isLongTitle = title.length > 38;
 
 	return (
 		<main className="recipe-sheet">

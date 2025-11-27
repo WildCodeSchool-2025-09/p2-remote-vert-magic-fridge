@@ -51,10 +51,10 @@
 }
 
 .recipe-title--long {
-	font-size: clamp(1.33rem, 2.28vw, 2rem);
+	font-size: clamp(1.1rem, 1.7vw, 1.8rem);
 	line-height: 1.3;
-	margin-bottom: 1.6rem;
-	margin-top: 0.7rem;
+	margin-bottom: 1.5rem;
+	margin-top: 0.5rem;
 	font-weight: 300;
 }
 
@@ -106,9 +106,9 @@ figure {
 
 .recipe-kcal-styled {
 	text-transform: uppercase;
-	letter-spacing: 2px;
-	font-size: 1.2rem;
-	margin-top: 0.7rem;
+	letter-spacing: 1.6px;
+	font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+	margin-top: 0.5rem;
 	color: var(--text-color-wht);
 	display: block;
 }
@@ -260,10 +260,6 @@ button.icon-button:hover img {
 
 	.recipe-hero-text {
 		padding: 1.5rem 1rem;
-	}
-
-	.recipe-hero-text h1 {
-		font-size: clamp(1.6rem, 6vw, 2.2rem);
 	}
 
 	.recipe-hero-figure {

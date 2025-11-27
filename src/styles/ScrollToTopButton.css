@@ -1,9 +1,10 @@
 .scroll-to-top {
 	position: fixed;
-	bottom: 2rem;
-	right: 2rem;
-	width: 48px;
-	height: 48px;
+	bottom: clamp(1rem, 2vw, 2rem);
+	right: clamp(1rem, 2vw, 2rem);
+
+	width: clamp(35px, 7vw, 50px);
+	height: clamp(35px, 7vw, 50px);
 
 	display: flex;
 	align-items: center;
@@ -14,9 +15,11 @@
 	background-color: var(--bg-color);
 	color: var(--text-color-blk);
 
-	font-size: 1.5rem;
+	font-size: clamp(1rem, 3vw, 1.5rem);
+	font-weight: 700;
 	cursor: pointer;
 	z-index: 1000;
+	opacity: 60%;
 
 	transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -25,4 +28,5 @@
 	transform: translateY(-4px);
 	background-color: var(--bg-color-brightred);
 	color: #fff;
+	opacity: 100%;
 }
